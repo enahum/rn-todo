@@ -1,25 +1,24 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {PureComponent} from 'react';
+import {Provider} from 'react-redux';
+import {StatusBar} from 'react-native';
+import {PersistGate} from 'redux-persist/integration/react';
 
-import {store, peristor} from 'app/store';
+import AppNavigation from 'app/screens';
+import LoadingScreen from 'app/screens/loading';
+import {store, persistor} from 'app/store';
 
-export default class App extends React.Component {
+export default class App extends PureComponent {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+        <Provider store={store}>
+            <PersistGate
+                loading={<LoadingScreen/>}
+                persistor={persistor}
+            >
+                <StatusBar barStyle="light-content"/>
+                <AppNavigation/>
+            </PersistGate>
+        </Provider>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
