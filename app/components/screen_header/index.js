@@ -40,6 +40,7 @@ const style = StyleSheet.create({
     division: {
         height: 1,
         backgroundColor: '#555659',
-        marginVertical: 20,
+        marginBottom: 20,
+        marginTop: 10
     }
 });
