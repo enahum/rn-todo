@@ -1,7 +1,9 @@
 import React, {PureComponent} from 'react';
-import {SafeAreaView, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {Platform, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {Button} from 'native-base';
 import PropTypes from 'prop-types';
+
+import ScreenHeader from 'app/components/screen_header';
 
 export default class CreateScreen extends PureComponent {
     static propTypes = {
@@ -45,25 +47,37 @@ export default class CreateScreen extends PureComponent {
 
     render() {
         return (
-            <SafeAreaView style={style.container}>
-                <Text style={style.title}>
-                    Create!
-                </Text>
+            <SafeAreaView style={style.safeArea}>
+                <View style={style.container}>
+                    <ScreenHeader
+                        title='Crear Nueva Tarea'
+                        separator={false}
+                        titleContainerStyle={style.titleContainer}
+                    />
+                </View>
             </SafeAreaView>
         );
     }
 }
 
 const style = StyleSheet.create({
-    container: {
+    safeArea: {
         flex: 1,
         backgroundColor: '#03060D',
+    },
+    container: {
+        flex: 1,
         paddingHorizontal: 20,
     },
-    title: {
-        color: '#FFF',
-        fontSize: 30,
-        fontWeight: '600'
+    titleContainer: {
+        ...Platform.select({
+            ios: {
+                paddingTop: 10,
+            },
+            android: {
+                paddingTop: 0,
+            },
+        }),
     },
     rightButton: {
         color: '#0BE6AF',
@@ -73,5 +87,5 @@ const style = StyleSheet.create({
     },
     disabled: {
         opacity: 0.5,
-    }
+    },
 });
