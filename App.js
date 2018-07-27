@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import store from 'app/store';
+import {store, peristor} from 'app/store';
 
 export default class App extends React.Component {
   render() {
