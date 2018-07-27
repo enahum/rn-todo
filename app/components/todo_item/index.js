@@ -12,7 +12,7 @@ function mapStateToProps(state, ownProps) {
 
     return {
         todo,
-        category: getCategoryByName(state, todo.category),
+        category: todo ? getCategoryByName(state, todo.category) : '',
     };
 }
 

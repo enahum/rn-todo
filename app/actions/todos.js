@@ -8,19 +8,9 @@ export function createTodo(data, notify) {
     return async (dispatch) => {
         let notificationId;
         if (notify) {
-            notificationId = await Notifications.scheduleLocalNotificationAsync({
-                title: 'Recordatorio de Tarea',
-                body: data.text,
-                data: {
-                    message: data.text,
-                },
-                android: {
-                    channelId: 'test-notifications'
-                }
-            }, {
-                time: data.date - NOTIFY_OFFSET
-            });
+            notificationId = await scheduleNotification(data);
         }
+
         dispatch({
             type: TodoTypes.ADD_TODO,
             ...data,
@@ -31,21 +21,65 @@ export function createTodo(data, notify) {
 
 export function removeTodo(id) {
     return async (dispatch, getState) => {
-        const todo = getTodo(getState());
-        if (todo.notificationId) {
-            Notifications.cancelScheduledNotificationAsync(todo.notificationId);
-        }
+        const todo = getTodo(getState(), id);
 
-        dispatch({
-            type: TodoTypes.REMOVE_TODO,
-            id,
-        });
+        if (todo) {
+            if (todo.notificationId) {
+                Notifications.cancelScheduledNotificationAsync(todo.notificationId);
+            }
+
+            dispatch({
+                type: TodoTypes.REMOVE_TODO,
+                id,
+            });
+        }
     };
 }
 
 export function toggleTodo(id) {
-    return {
-        type: TodoTypes.TOGGLE_TODO,
-        id,
-    };
+    return async (dispatch, getState) => {
+        const todo = getTodo(getState(), id);
+
+        if (todo) {
+            const {completed, notificationId} = todo;
+            let newNotificationId;
+
+            if (notificationId) {
+                if (completed) {
+                    Notifications.cancelScheduledNotificationAsync(notificationId);
+                } else {
+                    newNotificationId = await scheduleNotification(todo);
+                }
+            }
+
+            dispatch({
+                type: TodoTypes.TOGGLE_TODO,
+                id,
+                notificationId: newNotificationId,
+            });
+        }
+    }
+}
+
+async function scheduleNotification(todo) {
+    const {text, date} = todo;
+    const delta = date - NOTIFY_OFFSET;
+    let notificationId;
+
+    if (Date.now() < delta) {
+        notificationId = await Notifications.scheduleLocalNotificationAsync({
+            title: 'Recordatorio de Tarea',
+            body: text,
+            data: {
+                message: text,
+            },
+            android: {
+                channelId: 'test-notifications'
+            }
+        }, {
+            time: delta
+        });
+    }
+
+    return notificationId;
 }
