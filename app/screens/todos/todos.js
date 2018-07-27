@@ -12,7 +12,6 @@ import PropTypes from 'prop-types';
 
 import ScreenHeader from 'app/components/screen_header';
 import TodoItem from 'app/components/todo_item';
-import {getDateWithFormat} from 'app/utils/helpers';
 import emptyTodo from 'assets/todos.png';
 
 export default class TodoScreen extends PureComponent {
@@ -51,7 +50,7 @@ export default class TodoScreen extends PureComponent {
     };
 
     renderItemSeparator = () => {
-        return null;
+        return <View style={style.itemSeparator}/>;
     };
 
     render() {
@@ -61,7 +60,8 @@ export default class TodoScreen extends PureComponent {
             <SafeAreaView style={style.safeArea}>
                 <View style={style.container}>
                     <ScreenHeader
-                        title={getDateWithFormat()}
+                        titleContainerStyle={style.titleContainer}
+                        title='Lista de Tareas'
                     />
                     <FlatList
                         data={todoIds}
@@ -71,7 +71,7 @@ export default class TodoScreen extends PureComponent {
                         keyExtractor={this.keyExtractor}
                         renderItem={this.renderItem}
                         removeClippedSubviews={true}
-                        ItemSeparatorComponent={this.renderItemSeparator()}
+                        ItemSeparatorComponent={this.renderItemSeparator}
                         ListEmptyComponent={this.renderEmptyList}
                     />
                 </View>
@@ -87,15 +87,20 @@ const style = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingHorizontal: 20,
         ...Platform.select({
             android: {
                 paddingTop: 20
             }
         })
     },
+    titleContainer: {
+        paddingHorizontal: 20,
+    },
     list: {
         marginBottom: 25,
+    },
+    itemSeparator: {
+        height: 20,
     },
     centerEmptyList: {
         alignItems: 'center',

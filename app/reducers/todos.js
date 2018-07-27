@@ -23,6 +23,7 @@ const todos = (state = [], action) => {
                return {
                    ...todo,
                    completed: !todo.completed,
+                   notificationId: todo.notificationId,
                };
            }
 

@@ -17,7 +17,12 @@ export const getTodo = createSelector(
     (todos, id) => todos.find((t) => t.id === id),
 );
 
-export const getAllTodoIds = createSelector(
+export const getAllSortedTodos = createSelector(
     getAllTodos,
+    (todos) => todos.sort((t1, t2) => t2.date < t1.date),
+);
+
+export const getAllSortedTodoIds = createSelector(
+    getAllSortedTodos,
     (todos) => todos.map((t) => t.id),
 );
