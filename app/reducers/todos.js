@@ -9,6 +9,7 @@ const todos = (state = [], action) => {
                 id: action.id,
                 text: action.text,
                 completed: false,
+                important: action.important,
                 notificationId: action.notificationId,
                 category: action.category,
                 date: action.date,

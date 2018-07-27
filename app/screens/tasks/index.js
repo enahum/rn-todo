@@ -3,7 +3,7 @@ import {Platform, SafeAreaView, StyleSheet, View} from 'react-native';
 import PropTypes from 'prop-types';
 
 import ScreenHeader from 'app/components/screen_header';
-import {getCurrentDateWithFormat} from 'app/utils/helpers';
+import {getDateWithFormat} from 'app/utils/helpers';
 
 export default class TasksScreen extends PureComponent {
     static propTypes = {
@@ -15,7 +15,7 @@ export default class TasksScreen extends PureComponent {
             <SafeAreaView style={style.safeArea}>
                 <View style={style.container}>
                     <ScreenHeader
-                        title={getCurrentDateWithFormat()}
+                        title={getDateWithFormat()}
                     />
                 </View>
             </SafeAreaView>
