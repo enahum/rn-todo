@@ -4,11 +4,11 @@ import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
 import TabBar from 'app/components/tab_bar';
 import CreateScreen from 'app/screens/create';
 import HomeScreen from 'app/screens/home';
-import TasksScreen from 'app/screens/tasks';
+import TodoScreen from 'app/screens/todos';
 
 const TabStack = createBottomTabNavigator({
     Home: { screen: HomeScreen },
-    Tasks: { screen: TasksScreen },
+    Todos: { screen: TodoScreen },
 }, {
     initialRoute: 'Home',
     cardStyle: {

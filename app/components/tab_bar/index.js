@@ -35,7 +35,7 @@ export default class TabBar extends PureComponent {
         };
     };
 
-    createTask = () => {
+    navigateCreate = () => {
         const {navigation} = this.props;
         navigation.navigate('Create')
     };
@@ -45,9 +45,9 @@ export default class TabBar extends PureComponent {
         navigation.navigate('Home');
     };
 
-    navigateTasks = () => {
+    navigateTodos = () => {
         const {navigation} = this.props;
-        navigation.navigate('Tasks');
+        navigation.navigate('Todos');
     };
 
     onDimensionsChange = ({window}) => {
@@ -86,7 +86,7 @@ export default class TabBar extends PureComponent {
                         </Button>
                         <Button
                             vertical
-                            onPress={this.navigateTasks}>
+                            onPress={this.navigateTodos}>
                             <Icon
                                 type='Ionicons'
                                 name='md-list'
@@ -101,7 +101,7 @@ export default class TabBar extends PureComponent {
                     containerStyle={fabComputedStyle}
                     style={style.fab}
                     position='bottomRight'
-                    onPress={this.createTask}>
+                    onPress={this.navigateCreate}>
                     <Icon
                         type='MaterialIcons'
                         name='add'

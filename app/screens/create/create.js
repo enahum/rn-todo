@@ -94,7 +94,7 @@ export default class CreateScreen extends PureComponent {
             date,
         }, notify);
 
-        navigation.navigate('Tasks');
+        navigation.navigate('Todos');
         navigation.pop();
     };
 
