@@ -5,7 +5,7 @@ import {Constants} from 'expo';
 
 import HomeItem from 'app/components/home_item';
 import ScreenHeader from 'app/components/screen_header';
-import {getCurrentDateWithFormat} from 'app/utils/helpers';
+import {getDateWithFormat} from 'app/utils/helpers';
 
 export default class HomeScreen extends PureComponent {
     static propTypes = {
@@ -98,7 +98,7 @@ export default class HomeScreen extends PureComponent {
                             iconName='timer-sand'
                             iconType='MaterialCommunityIcons'
                             title='Fecha Actual'
-                            text={getCurrentDateWithFormat()}
+                            text={getDateWithFormat()}
                             style={style.blankSpace}
                         />
                         <HomeItem
